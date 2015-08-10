@@ -4,6 +4,7 @@
 # TO RUN use: 
 #   docker run -it \
 #          -v ~/workspace:/home/user/workspace \
+#          -v ~/vim:/home/user/.vim \
 #          --name dev-base \
 #          latrokles/dev-base:1.0
 
@@ -29,6 +30,8 @@ RUN su -m user && cd
 RUN git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 ENV DOTFILES ${HOME}/workspace/config/dotfiles
 RUN echo "source ${DOTFILES}/.zshrc" > $HOME/.zshrc
+RUN echo "source ${DOTFILES}/.alias" > $HOME/.zshrc
+RUN ln -s ${DOTFILES}/.vimrc ~/.vimrc
 
 WORKDIR $HOME
 USER user
