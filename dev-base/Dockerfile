@@ -1,3 +1,12 @@
+# TO BUILD use:
+#   docker build -t latrokles/dev-base:1.0 .
+
+# TO RUN use: 
+#   docker run -it \
+#          -v ~/workspace:/home/user/workspace \
+#          --name dev-base \
+#          latrokles/dev-base:1.0
+
 FROM debian:jessie
 RUN awk '$1 ~ "^deb" { $3 = $3 "-backports"; print; exit  }' /etc/apt/sources.list > /etc/apt/sources.list.d/backports.list
 
@@ -7,6 +16,20 @@ RUN apt-get update && apt-get install -y \
     curl \
     tmux \
     vim
-        
-RUN chsh -s zsh
-RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+ENV HOME /home/user
+RUN useradd --create-home --home-dir $HOME user \
+        && mkdir -p $HOME/workspace \
+        && chown -R user:user $HOME
+
+ENV LANG C.UTF-8
+
+RUN chsh user -s /usr/bin/zsh
+RUN su -m user && cd
+RUN git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+ENV DOTFILES ${HOME}/workspace/config/dotfiles
+RUN echo "source ${DOTFILES}/.zshrc" > $HOME/.zshrc
+
+WORKDIR $HOME
+USER user
+CMD ["zsh"]
