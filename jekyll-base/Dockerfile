@@ -1,13 +1,6 @@
-# BUILD:
-#   docker build -t latrokles/jekyll:latest .
-
-# RUN:
-#   docker run -d \
-#          --name jekyll \
-#          latrokles/jekyll:1.0
-#
-
 FROM debian:jessie
+MAINTAINER latrokles@gmail.com
+
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     build-essential \
     ruby-dev \
