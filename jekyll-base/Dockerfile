@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM latrokles/base-env:latest
 MAINTAINER latrokles@gmail.com
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
