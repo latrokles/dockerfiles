@@ -8,7 +8,8 @@
 #          --name dev-rust \
 #          latrokles/dev-java
 
-FROM latrokles/dev-base:1.0
+FROM latrokles/base-dev-env:latest
+MAINTAINER latrokles@gmail.com
 
 USER root
 RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" \
