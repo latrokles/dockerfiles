@@ -1,13 +1,9 @@
-FROM debian:jessie
+FROM latrokles/base-env:latest
+MAINTAINER latrokles@gmail.com
 
-RUN awk '$1 ~ "^deb" { $3 = $3 "-backports"; print; exit  }' \
-    /etc/apt/sources.list > /etc/apt/sources.list.d/backports.list
-
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    git \
-    make
+RUN apt-get update && apt-get upgrade -y \\
+    apt-get install -y \
+    build-essential
 
 RUN curl --silent --location https://deb.nodesource.com/setup_0.12 | bash -
 RUN apt-get install --yes nodejs

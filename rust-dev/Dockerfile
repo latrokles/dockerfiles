@@ -8,7 +8,7 @@
 #          --name dev-rust \
 #          latrokles/dev-rust-stable
 
-FROM latrokles/dev-base:1.0
+FROM latrokles/base-dev-env:latest
 
 ENV RUST_VERSION 1.2.0
 ENV RUST_BINARIES $HOME/rust-binaries
@@ -26,4 +26,4 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get remove --purge -y curl && \
     DEBIAN_FRONTEND=noninteractive apt-get autoremove -y 
 
-USER user
+USER latrokles
