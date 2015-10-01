@@ -13,7 +13,6 @@ RUN gem install jekyll therubyracer json --no-doc --no-ri
 ENV user jekyll
 ENV HOME /home/${user}
 RUN useradd --create-home --home-dir $HOME ${user}
-RUN mkdir ${HOME}
 RUN chown -R {user}:${user} ${HOME}
 
 USER ${user}
