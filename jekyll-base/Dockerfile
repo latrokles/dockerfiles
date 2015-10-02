@@ -16,4 +16,4 @@ RUN useradd --create-home --home-dir $HOME ${user}
 RUN chown -R ${user}:${user} ${HOME}
 
 USER ${user}
-WORKDIR ${user}
+WORKDIR ${HOME}
