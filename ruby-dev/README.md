@@ -14,5 +14,5 @@ docker build -t latrokles/ruby-dev-env:latest .
 docker run -it \
         -v ${HOME}/workspace/ruby:/home/${user}/workspace \
         --name ruby-dev \
-        latrokles/ruby-env:latest
+        latrokles/ruby-dev-env:latest
 ```
