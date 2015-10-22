@@ -26,8 +26,7 @@ USER ${user}
 RUN git clone ${OMZ_REPO} ${OMZ_DEST}
 ## Setup user dotfiles
 RUN git clone ${DOTFILES_REPO}
-RUN echo "source ~/dotfiles/.zshrc" >> $HOME/.zshrc
-RUN echo "source ~/dotfiles/.alias" >> $HOME/.zshrc
+RUN echo "source ~/dotfiles/zshrc" >> $HOME/.zshrc
 
 ## Setup vim
 RUN zsh ~/dotfiles/setup-vim.sh
