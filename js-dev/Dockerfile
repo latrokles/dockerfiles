@@ -16,6 +16,6 @@ RUN chown -R ${user}.${user} ${NPM_MODULE_DIR}
 
 USER ${user}
 RUN npm config set prefix ${NPM_MODULE_DIR}
-ENV PATH ${NPM_MODULE_DIR}:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+ENV PATH ${NPM_MODULE_DIR}:${NPM_MODULE_DIR}/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 WORKDIR ${HOME}
 CMD ["/bin/sh"]
