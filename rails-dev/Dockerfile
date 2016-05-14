@@ -2,7 +2,7 @@ FROM alpine:3.3
 
 # packages to install
 ENV BUILD_PACKAGES bash tree curl-dev ruby-dev build-base libxml2-dev
-ENV DEV_PACKAGES zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev sqlite-dev postgresql-dev mysql-dev
+ENV DEV_PACKAGES nodejs zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev sqlite-dev postgresql-dev mysql-dev
 ENV RUBY_PACKAGES ruby ruby-io-console
 
 RUN apk update
