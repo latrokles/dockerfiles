@@ -1,35 +1,31 @@
-FROM latrokles/base-dev-env:latest
+FROM alpine:3.3
 MAINTAINER latrokles@gmail.com
 
-# install RVM
-USER root
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-    autoconf \
-    automake \
-    bison \
-    gawk \
-    libffi-dev \
-    libgdbm-dev \
-    libncurses5-dev \
-    libreadline6-dev \
-    libsqlite3-dev \
-    libssl-dev \
-    libtool \
-    libyaml-dev \
-    pkg-config \
-    sqlite3 \
-    zlib1g-dev 
+# packages to install
+ENV BUILD_PACKAGES bash tree curl-dev ruby-dev build-base libxml2-dev
+ENV DEV_PACKAGES zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev sqlite-dev postgresql-dev mysql-dev
+ENV RUBY_PACKAGES ruby ruby-io-console
+ENV APP_PACKAGES sqlite
 
-USER ${user}
-RUN cd
-RUN gpg --keyserver hkp://keys.gnupg.net \ 
-    --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-RUN curl -sSL https://get.rvm.io | bash -s stable --ruby
+RUN apk update
+RUN apk upgrade
+RUN apk add ${BUILD_PACKAGES} ${DEV_PACKAGES} ${RUBY_PACKAGES} ${APP_PACKAGES}
 
-# set up RVM for use
+# create user
+ENV user developer
+RUN /usr/sbin/adduser -D ${user}
+
+# set up user's path and gem home 
 USER ${user}
-RUN cd
-RUN echo "source /home/latrokles/.rvm/scripts/rvm" >> ${HOME}/.zshrc
-RUN echo \
-    "[[ -r $rvm_path/scripts/completion  ]] && . $rvm_path/scripts/completion" \ 
-    >> ${HOME}/.zshrc
+ENV workspace /home/${user}/workspace
+RUN mkdir ${workspace}
+RUN echo export PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH" >> ~/.bashrc
+RUN echo export GEM_HOME="$(ruby -rubygems -e 'puts Gem.user_dir')" >> ~/.bashrc
+RUN echo "gem: --no-rdoc --no-ri" >> ~/.gemrc
+
+# setup bundler
+RUN gem install -N bundler --user-install
+
+# setup for startup
+WORKDIR ${workspace}
+CMD ["bash"]
