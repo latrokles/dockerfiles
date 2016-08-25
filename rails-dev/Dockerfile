@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.4
 
 # packages to install
 ENV BUILD_PACKAGES bash tree curl-dev ruby-dev build-base libxml2-dev
@@ -23,7 +23,7 @@ RUN echo export GEM_HOME="$(ruby -rubygems -e 'puts Gem.user_dir')" >> ~/.bashrc
 
 # setup bundler and rails
 RUN gem install -N bundler --user-install
-RUN gem install -N nokogiri --user-install -- --use-system-libraries
+RUN gem install -N nokogiri --user-install
 RUN /bin/sh -c "export PATH=\"$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH\" && bundle config build.nokogiri \"--use-system-libraries\""
 RUN /bin/sh -c "export PATH=\"$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH\" && bundle config build.nokogumbo \"--use-system-libraries\""
 RUN gem install -N --user-install rails
