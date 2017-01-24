@@ -1,6 +1,6 @@
-FROM alpine
+FROM node:alpine
 
-RUN apk add --update nodejs
+RUN apk add --update git
 RUN npm install -g resume-cli
 
 WORKDIR /home
